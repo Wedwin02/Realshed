@@ -55,38 +55,29 @@
           <div class="card">
             <div class="card-body">
 
-                <h6 class="card-title">Update Admin Profile</h6>
+                <h6 class="card-title"> Admin Change Password</h6>
 
-                <form method="POST" action="{{route('admin.profile.store')}}"  class="forms-sample" enctype="multipart/form-data">
+                <form method="POST" action="{{route('admin.update.password')}}"  class="forms-sample" enctype="multipart/form-data">
                   @csrf
                     <div class="mb-3">
-                        <label for="exampleInputUsername1" class="form-label">Username</label>
-                        <input type="text" name="username" value="{{$profileData->username}}"class="form-control" id="exampleInputUsername1" autocomplete="off" placeholder="Username">
+                        <label for="exampleInputUsername1" class="form-label">Old Password</label>
+                        <input type="password" @error('old_password') is-invalid @enderror name="old_password"  class="form-control" id="old_password" autocomplete="off" >
+                        @error('old_password')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputUser" class="form-label">User</label>
-                        <input type="text" name="name" value="{{$profileData->name}}"class="form-control" id="exampleInputUser" autocomplete="off" placeholder="User">
+                        <label for="exampleInputUsername1" class="form-label">New Password</label>
+                        <input type="password" @error('new_password') is-invalid @enderror name="new_password"  class="form-control" id="new_password" autocomplete="off" >
+                        @error('new_password')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email"  name="email"  value="{{$profileData->email}}"class="form-control" id="email" placeholder="Email">
+                        <label for="exampleInputUsername1" class="form-label">Confirm New Password</label>
+                        <input type="password" name="new_password_confirmation" class="form-control" id="new_password_confirmation" autocomplete="off">
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPhone" class="form-label">Phone</label>
-                        <input type="text"   name="phone" value="{{$profileData->phone}}"class="form-control" id="phone" placeholder="Phone">
-                    </div>                   
-                    <div class="mb-3">
-                        <label for="exampleInputAddress" class="form-label">Adrress</label>
-                        <input type="text"   name="address" value="{{$profileData->address}}"class="form-control" id="address" placeholder="Address">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPhone" class="form-label">Photo</label>
-                        <input type="file"   name="photo" value="{{$profileData->photo}}"class="form-control" id="image">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label"></label>
-                        <img class="wd-80 rounded-circle" id="showImage" src="{{(!empty($profileData->photo))?url('upload/admin_images/'.$profileData->photo):url('upload/no_image.jpg')}}">
-                    </div>
+                   
                     <button type="submit" class="btn btn-primary me-2">Save Changes</button>
                  
                 </form>
@@ -105,17 +96,6 @@
 
 
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#image').change(function(e){
-            var reader = new FileReader();
-            reader.onload = function(e){
-                $('#showImage').attr('src',e.target.result);
-            }
-            reader.readAsDataURL(e.target.files['0']);
-        });
-    });
-</script>
 
 
 
