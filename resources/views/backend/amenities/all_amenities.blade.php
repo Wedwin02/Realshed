@@ -6,7 +6,7 @@
 
       <nav class="page-breadcrumb">
           <ol class="breadcrumb">
-            <a href="{{route('add.type')}}" class="btn btn-inverse-success">Add Property</a>
+            <a href="{{route('add.amenities')}}" class="btn btn-inverse-success">Add Amenities</a>
           </ol>
       </nav>
 
@@ -14,27 +14,25 @@
           <div class="col-md-12 grid-margin stretch-card">
   <div class="card">
     <div class="card-body">
-      <h6 class="card-title">Property Type</h6>
+      <h6 class="card-title">Amenities</h6>
       
       <div class="table-responsive">
         <table id="dataTableExample" class="table">
           <thead>
             <tr>
               <th>S1</th>
-              <th>Type Name</th>
-              <th>Type Icone</th>
+              <th>Amenitie  Name</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($types as $key=>$item) 
+            @foreach($amenities as $key=>$item) 
             <tr>
               <td>{{$key+1}}</td>
-              <td>{{$item->type_name}}</td>
-              <td>{{$item->type_icon}}</td>
+              <td>{{$item->amenities_name}}</td>
               <td>
-                <a href="{{route('edit.type',$item->id)}}" class="btn btn-inverse-warning">Edit</a>
-                <a href="{{route('delete.type',$item->id)}}" class="btn btn-inverse-danger" id="delete">Delete</a>
+                <a href="{{route('edit.amenities',$item->id)}}" class="btn btn-inverse-warning">Edit</a>
+                <a href="{{route('delete.amenities',$item->id)}}" class="btn btn-inverse-danger" id="delete">Delete</a>
             </td>
             </tr>
             @endforeach

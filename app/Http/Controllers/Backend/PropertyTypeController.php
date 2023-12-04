@@ -9,6 +9,7 @@ use App\Models\PropertyType;
 
 class PropertyTypeController extends Controller
 {
+    //Property Function CRUD
     public function AllType(){
         $types = PropertyType::latest()->get();
         return view('backend.type.all_type',compact('types'));
