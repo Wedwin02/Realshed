@@ -6,6 +6,7 @@ use App\Http\Controllers\AgentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\AmenitieController;
+use App\Http\Controllers\Backend\RoleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,6 +79,14 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/update/amenities', 'UpdateAmenities')->name('update.amenities');
         Route::get('/delete/amenities/{id}', 'DeleteAmenities')->name('delete.amenities');
     });
-
+    ///Role  All Route
+    Route::controller(RoleController::class)->group(function(){
+    Route::get('/all/permission', 'AllPermission')->name('all.permission');
+    Route::get('/add/permission', 'AddPermission')->name('add.permission');
+    Route::post('/store/permission', 'StorePermission')->name('store.permission');
+    Route::get('/edit/permission/{id}', 'EditPermission')->name('edit.permission');
+    Route::post('/update/permission', 'UpdatePermission')->name('update.permission');
+    Route::get('/delete/permission/{id}', 'DeletePermission')->name('delete.permission');
+});
     
 });
