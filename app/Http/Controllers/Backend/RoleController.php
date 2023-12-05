@@ -67,4 +67,58 @@ class RoleController extends Controller
 
 
     }
+    ///Role method
+    public function AllRole(){
+        $roles = Role::all();
+        return view('backend.pages.role.all_role',compact('roles'));
+    }
+    public function AddRole(){
+        
+        return view('backend.pages.role.add_role');
+    }
+
+    public function StoreRole(Request $request){
+     
+        
+        $roles = Role::create([
+            'name'=>$request->name,
+        ]);
+        $notification=array(
+            'message'=>'Role Create Successfully',
+            'alert-type'=> 'success'
+
+       );
+
+       return redirect()->route('all.role')->with($notification);
+    }
+
+    public function EditRole($id){
+        $roles = Role::findOrFail($id);
+        return view('backend.pages.role.edit_role',compact('roles'));
+    }
+    public function UpdateRole(Request $request){
+        
+        $pid = $request->id;
+        Role::findOrFail($pid)->update([
+            'name'=>$request->name,
+        ]);
+        $notification=array(
+            'message'=>'Role Update Successfully',
+            'alert-type'=> 'success'
+
+       );
+       return redirect()->route('all.role')->with($notification);
+    }
+
+    public function DeleteRole($id){
+        Role::findOrFail($id)->delete();
+        $notification=array(
+            'message'=>'Role Delete Successfully',
+            'alert-type'=> 'success'
+
+       );
+       return redirect()->back()->with($notification);
+
+
+    }
 }
