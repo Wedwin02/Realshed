@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\AmenitieController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\ExcelDateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -86,7 +87,15 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::post('/store/permission', 'StorePermission')->name('store.permission');
     Route::get('/edit/permission/{id}', 'EditPermission')->name('edit.permission');
     Route::post('/update/permission', 'UpdatePermission')->name('update.permission');
-    Route::get('/delete/permission/{id}', 'DeletePermission')->name('delete.permission');
-});
+    Route::get('/delete/permission/{id}', 'DeletePermission')->name('delete.permission');///ExcelDateController
+    });
+
+    ///Role  All Route
+    Route::controller(ExcelDateController::class)->group(function(){
+    Route::get('/export', 'ExportPermission')->name('export.permission');
+    Route::get('/import/permission', 'ImportPermission')->name('import.permission');
+    Route::post('/import', 'Import')->name('import');
+
+    });
     
 });

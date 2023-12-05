@@ -7,6 +7,10 @@
       <nav class="page-breadcrumb">
           <ol class="breadcrumb">
             <a href="{{route('add.permission')}}" class="btn btn-inverse-success">Add Permission</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="{{route('export.permission')}}" class="btn btn-inverse-warning">Export Data</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="{{route('import.permission')}}" class="btn btn-inverse-danger">Import Data</a>
           </ol>
       </nav>
 
