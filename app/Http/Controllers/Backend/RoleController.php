@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use App\Models\User;
+use DB;
 
 class RoleController extends Controller
 {
@@ -121,4 +122,84 @@ class RoleController extends Controller
 
 
     }
+
+    /// Role in Permission 
+    public function AllRolePermission(){
+        $roles = Role::all();
+        return view('backend.pages.rolesetup.all_role_permission',compact('roles'));
+    }
+
+    public function AddRolePermission(){
+        $roles = Role::all();
+        $permission = Permission::all();
+        $permission_groups = User::getPermissionGroup();
+        return view('backend.pages.rolesetup.add_role_permission',compact('roles','permission','permission_groups'));
+    }
+
+    public function StoreRolePermission(Request $request){
+        $data = array();
+        $permissions = $request->permission;
+
+        foreach($permissions as $key => $item){
+            $data['role_id'] = $request->role_id;
+            $data['permission_id'] = $item;
+
+            DB::table('role_has_permissions')->insert($data);
+        }
+        $notification=array(
+            'message'=>'Add Role has Permission Successfully',
+            'alert-type'=> 'success'
+
+       );
+       return redirect()->route('all.role.permission')->with($notification);
+
+    }
+
+    public function EditRolePermission($id){
+        
+        $roles = Role::findOrFail($id);
+        $permission = Permission::all();
+        $permission_groups = User::getPermissionGroup();
+
+        return view('backend.pages.rolesetup.edit_role_permission',compact('roles','permission','permission_groups'));
+        
+    }
+
+    public function UpdateRolePermission(Request $request, $id){
+
+        $roles = Role::findOrFail($id);
+        $permissions = $request->permission;
+        
+        if(!empty($permissions)){
+            $roles->syncPermissions($permissions);
+            
+        }
+        
+        $notification=array(
+            'message'=>'Update Role has Permission Successfully',
+            'alert-type'=> 'success'
+
+       );
+       return redirect()->route('all.role.permission')->with($notification);
+        
+    }
+
+    public function DeleteRolePermission($id){
+        $roles = Role::findOrFail($id);
+        if(!is_null($roles)){
+            $roles->delete();
+
+        }
+        $notification=array(
+            'message'=>'Delete Role has Permission Successfully',
+            'alert-type'=> 'success'
+
+       );
+       return redirect()->back()->with($notification);
+
+    }
+    
+
+
+
 }

@@ -80,7 +80,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/update/amenities', 'UpdateAmenities')->name('update.amenities');
         Route::get('/delete/amenities/{id}', 'DeleteAmenities')->name('delete.amenities');
     });
-    ///Role  All Route
+    ///Permission  All Route
     Route::controller(RoleController::class)->group(function(){
     Route::get('/all/permission', 'AllPermission')->name('all.permission');
     Route::get('/add/permission', 'AddPermission')->name('add.permission');
@@ -89,6 +89,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::post('/update/permission', 'UpdatePermission')->name('update.permission');
     Route::get('/delete/permission/{id}', 'DeletePermission')->name('delete.permission');
     });
+    ///Role all Route 
     Route::controller(RoleController::class)->group(function(){
         Route::get('/all/role', 'AllRole')->name('all.role');
         Route::get('/add/role', 'AddRole')->name('add.role');
@@ -96,8 +97,16 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::get('/edit/role/{id}', 'EditRole')->name('edit.role');
         Route::post('/update/role', 'UpdateRole')->name('update.role');
         Route::get('/delete/role/{id}', 'DeleteRole')->name('delete.role');
-        });
-    
+    });
+    ///Role in Permission
+    Route::controller(RoleController::class)->group(function(){
+    Route::get('/all/role/permission', 'AllRolePermission')->name('all.role.permission');
+    Route::get('/add/role/permission', 'AddRolePermission')->name('add.role.permission');
+    Route::post('/store/role/permission', 'StoreRolePermission')->name('store.role.permission');
+    Route::get('/admin/edit/role/{id}', 'EditRolePermission')->name('admin.edit.role');
+    Route::post('/admin/roles/update/{id}', 'UpdateRolePermission')->name('admin.role.update');
+    Route::get('/delete/role/permission/{id}', 'DeleteRolePermission')->name('admin.role.delete');
+    });
 
     ///Excel  All Route
     Route::controller(ExcelDateController::class)->group(function(){
@@ -105,6 +114,20 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/import/permission', 'ImportPermission')->name('import.permission');
     Route::post('/import', 'Import')->name('import');
 
+    });
+
+
+    ///All User Route
+    Route::controller(AdminController::class)->group(function(){
+    Route::get('/all/admin', 'AllAdmin')->name('all.admin');
+    Route::get('/add/admin', 'AddAdmin')->name('add.admin');
+    Route::post('/store/admin', 'StoreAdmin')->name('store.admin');
+    Route::get('/admin/edit/{id}', 'EditAdmin')->name('admin.edit');
+    Route::post('/admin/update/{id}', 'UpdateAdmin')->name('update.admin');
+    Route::get('/admin/delete/{id}', 'DeleteAdmin')->name('admin.delete');
+
+
+    
     });
     
 });
