@@ -62,8 +62,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
     ///Property type  All Route
     
     Route::controller(PropertyTypeController::class)->group(function(){
-        Route::get('/all/type', 'AllType')->name('all.type');
-        Route::get('/add/type', 'AddType')->name('add.type');
+        Route::get('/all/type', 'AllType')->name('all.type')->middleware('can:type.all');
+        Route::get('/add/type', 'AddType')->name('add.type')->middleware('can:type.add');
         Route::post('/store/type', 'StoreType')->name('store.type');
         Route::get('/edit/type/{id}', 'EditType')->name('edit.type');
         Route::post('/update/type', 'UpdateType')->name('update.type');
